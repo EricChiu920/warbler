@@ -1,5 +1,5 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-require('dontenv').config();
 
 const { DB_USER } = process.env;
 const { DB_PASS } = process.env;

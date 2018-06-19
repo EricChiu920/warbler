@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -15,7 +16,6 @@ app.use((req, res, next) => {
   err.status = 404;
   next(err);
 });
-
 app.use(errorHandler);
 
 app.listen(PORT, () => {
