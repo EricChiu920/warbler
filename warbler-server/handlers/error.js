@@ -1,7 +1,7 @@
-function errorHandler(error, req, res, next) {
-  return next(res.status(error.status || 500).json({
+function errorHandler(err, req, res, next) {
+  return next(res.status(err.status || 500).json({
     error: {
-      message: error.message || 'Oops! Something went wrong.',
+      message: err.message || 'Oops! Something went wrong.',
     },
   }));
 }

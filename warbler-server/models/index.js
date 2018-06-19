@@ -8,5 +8,6 @@ mongoose.set('debug', true);
 mongoose.Promise = Promise;
 mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@ds261460.mlab.com:61460/warbler-db`, {
   keepAlive: true,
-  useMongoClient: true,
 });
+
+module.exports.User = require('./user');
