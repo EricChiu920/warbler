@@ -15,7 +15,6 @@ exports.logInRequired = (req, res, next) => {
         message: 'Please log in first',
       });
     });
-    return next();
   } catch (e) {
     return next({
       status: 401,
@@ -36,7 +35,6 @@ exports.ensureCorrectUser = (req, res, next) => {
         message: 'Unauthorized',
       });
     });
-    return next();
   } catch (e) {
     return next({
       status: 401,
