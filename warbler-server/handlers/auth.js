@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const db = require('../models');
 
-exports.signup = async function signUp(req, res, next) {
+exports.signup = async (req, res, next) => {
   try {
     const user = await db.User.create(req.body);
     const { id, username, profileImageUrl } = user;
@@ -26,11 +26,43 @@ exports.signup = async function signUp(req, res, next) {
     }
     return next({
       status: 400,
-      mssage: err.message,
+      message: `Error Signing up: ${err.message}`,
     });
   }
 };
 
-exports.signin = () => {
-
+exports.signin = async (req, res, next) => {
+  try {
+    const user = await db.User.findOne({
+      email: req.body.email,
+    });
+    const { id, username, profileImageUrl } = user;
+    const isMatch = await user.comparePassword(req.body.password);
+    if (isMatch) {
+      const token = jwt.sign(
+        {
+          id,
+          username,
+          profileImageUrl,
+        },
+        process.env.SECRET_KEY,
+      );
+      return res.status(200).json({
+        id,
+        username,
+        profileImageUrl,
+        token,
+      });
+    } else {
+      return next({
+        status: 400,
+        message: 'Invalid Email/Password',
+      });
+    }
+  } catch (e) {
+    return next({
+      status: 400,
+      message: 'Invalid Email/Password',
+    });
+  }
 };
