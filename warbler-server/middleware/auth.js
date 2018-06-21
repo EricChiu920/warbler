@@ -16,10 +16,7 @@ exports.logInRequired = (req, res, next) => {
       });
     });
   } catch (e) {
-    return next({
-      status: 401,
-      message: 'Please log in first',
-    });
+    return next({ status: 401, message: 'Please log in first' });
   }
 };
 
@@ -30,15 +27,9 @@ exports.ensureCorrectUser = (req, res, next) => {
       if (decoded && decoded.id === req.params.id) {
         return next();
       }
-      return next({
-        status: 401,
-        message: 'Unauthorized',
-      });
+      return next({ status: 401, message: 'Unauthorized' });
     });
   } catch (e) {
-    return next({
-      status: 401,
-      message: 'Unauthorized',
-    });
+    return next({ status: 401, message: 'Unauthorized' });
   }
 };

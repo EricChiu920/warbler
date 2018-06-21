@@ -33,9 +33,10 @@ exports.signup = async (req, res, next) => {
 
 exports.signin = async (req, res, next) => {
   try {
-    const user = await db.User.findOne({
-      email: req.body.email,
-    });
+    const user = await db.User.findOne().or([
+      { email: req.body.name },
+      { username: req.body.name },
+    ]);
     const { id, username, profileImageUrl } = user;
     const isMatch = await user.comparePassword(req.body.password);
     if (isMatch) {
@@ -47,7 +48,7 @@ exports.signin = async (req, res, next) => {
         },
         process.env.SECRET_KEY,
       );
-      return res.status(200).json({
+      res.status(200).json({
         id,
         username,
         profileImageUrl,
