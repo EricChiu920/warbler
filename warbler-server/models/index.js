@@ -11,3 +11,4 @@ mongoose.connect(`mongodb://${DB_USER}:${DB_PASS}@ds261460.mlab.com:61460/warble
 });
 
 module.exports.User = require('./user');
+module.exports.Message = require('./message');
