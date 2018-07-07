@@ -1,12 +1,12 @@
 import React from 'react';
-import { Switch, Router, withRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import HomePage from '../components/HomePage';
+import Homepage from '../components/Homepage';
 
-const Main = props => (
+const Main = () => (
   <React.Fragment>
     <Switch>
-      <Router exact path="/" render={props => <Homepage {...props} />} />
+      <Route exact path="/" render={props => <Homepage {...props} />} />
     </Switch>
   </React.Fragment>
 );
@@ -17,4 +17,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps))(Main);
+export default withRouter(connect(mapStateToProps)(Main));
