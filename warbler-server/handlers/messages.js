@@ -1,4 +1,5 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 const db = require('../models');
 
 exports.createMessage = async (req, res, next) => {
@@ -7,6 +8,7 @@ exports.createMessage = async (req, res, next) => {
       text: req.body.text,
       user: req.params.id,
     });
+
     const foundUser = await db.User.findById(req.params.id);
     foundUser.messages.push(message.id);
     await foundUser.save();
@@ -19,6 +21,7 @@ exports.createMessage = async (req, res, next) => {
     return next(e);
   }
 };
+
 exports.getMessage = async (req, res, next) => {
   try {
     const message = await db.Message.find(req.params.message._id);
