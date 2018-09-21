@@ -13,7 +13,7 @@ const PORT = 8081;
 const app = express();
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // all routes
 app.use('/api/auth', authRoutes);
@@ -39,6 +39,15 @@ app.use((req, res, next) => {
 });
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  console.log(`Server is starting on port ${PORT}`);
-});
+// Check for environmental variables. Make sure variables are not set to a falsy value.
+if (process.env.DB_PASS
+  && process.env.DB_USER
+  && process.env.SECRET_KEY
+) {
+  app.listen(PORT, () => {
+    console.log(`Server is starting on port ${PORT}`);
+  });
+} else {
+  console.log('Error with environmental variables');
+}
+

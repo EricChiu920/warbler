@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './AuthForm.css';
+import { newAuthUser } from '../services/api';
 
 class AuthForm extends Component {
   state = {
@@ -10,11 +11,21 @@ class AuthForm extends Component {
     profileImageUrl: '',
   }
 
-  handleChange = e => (
+  handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
-    })
-  )
+    });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { signUp, onAuth } = this.props;
+    const authType = signUp ? 'signup' : 'signin';
+    // onAuth(authType).then(() => {
+    //   console.log('authed');
+    // });
+    newAuthUser(authType);
+  }
 
   render() {
     const {
@@ -78,6 +89,7 @@ class AuthForm extends Component {
                   </label>
                 </div>
               )}
+              <button type="submit" className="btn btn-primary btn-block btn-lg">{buttonText}</button>
             </form>
           </div>
         </div>
@@ -94,6 +106,7 @@ AuthForm.propTypes = {
   heading: PropTypes.string.isRequired,
   buttonText: PropTypes.string.isRequired,
   signUp: PropTypes.bool,
+  onAuth: PropTypes.func.isRequired,
 };
 
 export default AuthForm;

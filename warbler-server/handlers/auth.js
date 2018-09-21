@@ -57,13 +57,13 @@ exports.signin = async (req, res, next) => {
     } else {
       return next({
         status: 400,
-        message: 'Invalid Email/Password',
+        message: `Invalid Email/Password. Name: ${req.body.name} password: ${req.body.password}`,
       });
     }
   } catch (e) {
     return next({
       status: 400,
-      message: 'Invalid Email/Password',
+      message: `Invalid Email/Password Name: ${req.body.name} password: ${req.body.password}`,
     });
   }
 };
