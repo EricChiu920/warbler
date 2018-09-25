@@ -1,4 +1,4 @@
-import { apiCall } from '../../services/api';
+import axios from 'axios';
 import { SET_CURRENT_USER } from '../actionTypes';
 
 export function setCurrentUser(user) {
@@ -9,10 +9,11 @@ export function setCurrentUser(user) {
 }
 
 export function authUser(type, userData) {
-  return dispatch => new Promise((resolve, reject) => apiCall('post', `/api/auth/${type}`, userData)
-    .then(({ token, ...user }) => {
-      localStorage.setItem('jwtToken', token);
-      dispatch(setCurrentUser(user));
-      resolve();
-    }));
+  axios.post(`http://localhost:8081/api/auth/${type}`, userData)
+    .then(() => {
+      console.log('axios');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }

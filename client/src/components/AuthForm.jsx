@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './AuthForm.css';
-import { newAuthUser } from '../services/api';
 
 class AuthForm extends Component {
   state = {
@@ -21,10 +20,7 @@ class AuthForm extends Component {
     e.preventDefault();
     const { signUp, onAuth } = this.props;
     const authType = signUp ? 'signup' : 'signin';
-    // onAuth(authType).then(() => {
-    //   console.log('authed');
-    // });
-    newAuthUser(authType);
+    onAuth(authType, this.state);
   }
 
   render() {
