@@ -13,14 +13,14 @@ const Main = () => (
         exact
         path="/signin"
         render={props => (
-          <AuthForm onAuth={authUser} buttonText="Log in" heading="Welcome Back." {...props} />
+          <AuthForm onAuth={authUser} errors={props.errors} buttonText="Log in" heading="Welcome Back." {...props} />
         )}
       />
       <Route
         exact
         path="/signup"
         render={props => (
-          <AuthForm onAuth={authUser} signUp buttonText="Sign me up!" heading="Join Warbler today." {...props} />
+          <AuthForm onAuth={authUser} errors={props.errors} signUp buttonText="Sign me up!" heading="Join Warbler today." {...props} />
         )}
       />
     </Switch>
@@ -30,6 +30,7 @@ const Main = () => (
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
+    errors: state.errors,
   };
 }
 

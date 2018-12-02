@@ -18,9 +18,10 @@ class AuthForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { signUp, onAuth } = this.props;
+    const { signUp, onAuth, errors } = this.props;
     const authType = signUp ? 'signup' : 'signin';
     onAuth(authType, this.state);
+    console.log(errors);
   }
 
   render() {
@@ -30,7 +31,12 @@ class AuthForm extends Component {
       password,
       profileImageUrl,
     } = this.state;
-    const { heading, buttonText, signUp } = this.props;
+    const {
+      heading,
+      buttonText,
+      signUp,
+      errors,
+    } = this.props;
 
     return (
       <React.Fragment>
@@ -38,6 +44,7 @@ class AuthForm extends Component {
           <div className="col-md-6">
             <form onSubmit={this.handleSubmit}>
               <h2>{heading}</h2>
+              {errors && errors.message && (<div className="alert alert-danger">{errors.message}</div>)}
               <label htmlFor="email">
                 Email:
                 <input
@@ -103,6 +110,7 @@ AuthForm.propTypes = {
   buttonText: PropTypes.string.isRequired,
   signUp: PropTypes.bool,
   onAuth: PropTypes.func.isRequired,
+  errors: PropTypes.objectOf(PropTypes.string),
 };
 
 export default AuthForm;
